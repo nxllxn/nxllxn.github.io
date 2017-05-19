@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://nxllxn.github.io/2017/05/19/java/java工具/DateUtil/index.html">
 <meta property="og:site_name" content="nxl的博客">
 <meta property="og:description" content="需求缘起 日常编程规程中或多或少需要用到日期转换相关的功能，比如常用格式的日期格式化为字符串或者是字符串转日期对象等，甚至有的时候需要一个兼容日期格式较多的字符串转日期方法，，继续往下看，我会实现一个基本满足上述功能的简单工具类。 为什么要实现为一个工具而不是一个工具类呢。首先声明工具类和工具是有区别的，工具类是指XXXUtil这种命名的类，其内部通常包含一组功能相近或者相似的静态工具函数，注">
-<meta property="og:updated_time" content="2017-05-19T03:08:48.971Z">
+<meta property="og:updated_time" content="2017-05-19T08:32:00.996Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何写一个优雅地实现一个Java日期转换工具">
 <meta name="twitter:description" content="需求缘起 日常编程规程中或多或少需要用到日期转换相关的功能，比如常用格式的日期格式化为字符串或者是字符串转日期对象等，甚至有的时候需要一个兼容日期格式较多的字符串转日期方法，，继续往下看，我会实现一个基本满足上述功能的简单工具类。 为什么要实现为一个工具而不是一个工具类呢。首先声明工具类和工具是有区别的，工具类是指XXXUtil这种命名的类，其内部通常包含一组功能相近或者相似的静态工具函数，注">
@@ -173,7 +173,7 @@
 
         
         <a href="/2017/05/19/java/java工具/DateUtil/" class="archive-article-date">
-  	<time datetime="2017-05-19T03:08:48.971Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-19</time>
+  	<time datetime="2017-05-19T08:32:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-19</time>
 </a>
         
       </header>
@@ -560,44 +560,46 @@
     }
 }
 </code></pre><p>具体实现细节我就不再多讲了，上面的每个实现都不是很复杂。</p>
-<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><pre><code>@Test
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><pre><code>DateTool dateTool = DateToolImpl.getSingleInstance();
+@Test
 @SuppressWarnings(&quot;unchecked&quot;)
 public void testIntelligentParse(){
-    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,DateUtil.parse(&quot;20120202&quot;).toString());
-    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,DateUtil.parse(&quot;2012-02-02&quot;).toString());
-    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,DateUtil.parse(&quot;2012-02-2&quot;).toString());
-    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,DateUtil.parse(&quot;2012年2月2日&quot;).toString());
+    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,dateTool.parse(&quot;20120202&quot;).toString());
+    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012-02-02&quot;).toString());
+    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012-02-2&quot;).toString());
+    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012年2月2日&quot;).toString());
 
-    assertEquals(&quot;Thu Feb 02 01:01:01 CST 2012&quot;,DateUtil.parse(&quot;2012-02-02 01:01:01&quot;).toString());
-    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,DateUtil.parse(&quot;2012/02/02&quot;).toString());
-    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,DateUtil.parse(&quot;2012-02-02&quot;).toString());
-    assertEquals(&quot;Thu Jan 01 20:12:02 CST 1970&quot;,DateUtil.parse(&quot;201202&quot;).toString());
+    assertEquals(&quot;Thu Feb 02 01:01:01 CST 2012&quot;,dateTool.parse(&quot;2012-02-02 01:01:01&quot;).toString());
+    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012/02/02&quot;).toString());
+    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012-02-02&quot;).toString());
+    assertEquals(&quot;Thu Jan 01 20:12:02 CST 1970&quot;,dateTool.parse(&quot;201202&quot;).toString());
 
-    assertEquals(&quot;Sun Jan 01 00:00:00 CST 2012&quot;,DateUtil.parse(&quot;2012&quot;).toString());
-    assertEquals(&quot;Sun Jan 01 00:00:00 CST 2012&quot;,DateUtil.parse(&quot;2012年&quot;).toString());
-    assertEquals(&quot;Wed Feb 01 00:00:00 CST 2012&quot;,DateUtil.parse(&quot;2012年02月&quot;).toString());
-    assertEquals(&quot;Wed Feb 01 00:00:00 CST 2012&quot;,DateUtil.parse(&quot;2012.02.01&quot;).toString());
+    assertEquals(&quot;Sun Jan 01 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012&quot;).toString());
+    assertEquals(&quot;Sun Jan 01 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012年&quot;).toString());
+    assertEquals(&quot;Wed Feb 01 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012年02月&quot;).toString());
+    assertEquals(&quot;Wed Feb 01 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012.02.01&quot;).toString());
 
-    assertEquals(&quot;Wed Feb 01 00:00:00 CST 2012&quot;,DateUtil.parse(&quot;2012.02&quot;).toString());
-    assertEquals(&quot;Thu Jan 01 11:11:11 CST 1970&quot;,DateUtil.parse(&quot;11:11:11&quot;).toString());
-    assertEquals(&quot;Thu Jan 01 01:01:01 CST 1970&quot;,DateUtil.parse(&quot;1:1:1&quot;).toString());
-    assertEquals(&quot;Thu Jan 01 01:01:01 CST 1970&quot;,DateUtil.parse(&quot;01:01:01&quot;).toString());
+    assertEquals(&quot;Wed Feb 01 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012.02&quot;).toString());
+    assertEquals(&quot;Thu Jan 01 11:11:11 CST 1970&quot;,dateTool.parse(&quot;11:11:11&quot;).toString());
+    assertEquals(&quot;Thu Jan 01 01:01:01 CST 1970&quot;,dateTool.parse(&quot;1:1:1&quot;).toString());
+    assertEquals(&quot;Thu Jan 01 01:01:01 CST 1970&quot;,dateTool.parse(&quot;01:01:01&quot;).toString());
 
-    assertEquals(&quot;Thu Jan 01 11:11:00 CST 1970&quot;,DateUtil.parse(&quot;11:11&quot;).toString());
-    assertEquals(&quot;Thu Jan 01 11:00:00 CST 1970&quot;,DateUtil.parse(&quot;11&quot;).toString());
+    assertEquals(&quot;Thu Jan 01 11:11:00 CST 1970&quot;,dateTool.parse(&quot;11:11&quot;).toString());
+    assertEquals(&quot;Thu Jan 01 11:00:00 CST 1970&quot;,dateTool.parse(&quot;11&quot;).toString());
 }
 
 结果：上面的单元测试都可以通过
 
 //测试多线程
 public static void main(String[] args) {
+    DateTool dateTool = DateToolImpl.getSingleInstance();
     for (int index = 0;index &lt; 10;index ++){
         new Thread(() -&gt; {
             String currentThreadName = Thread.currentThread().getName();
 
-            System.out.println(currentThreadName + &quot; &quot; + DateUtil.parse(&quot;20120202&quot;));
-            System.out.println(currentThreadName + &quot; &quot; + DateUtil.parse(&quot;11:11:11&quot;));
-            System.out.println(currentThreadName + &quot; &quot; + DateUtil.parse(&quot;2012年02月02日 11:11:11&quot;));
+            System.out.println(currentThreadName + &quot; &quot; + dateTool.parse(&quot;20120202&quot;));
+            System.out.println(currentThreadName + &quot; &quot; + dateTool.parse(&quot;11:11:11&quot;));
+            System.out.println(currentThreadName + &quot; &quot; + dateTool.parse(&quot;2012年02月02日 11:11:11&quot;));
         }).start();
     }
 }
@@ -750,15 +752,11 @@ Thread-9 Thu Feb 02 11:11:11 CST 2012
   
 <nav id="article-nav">
   
-    <a href="/2017/05/19/essay/essay/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          随笔
-        
-      </div>
-    </a>
   
+    <a href="/2017/05/19/essay/essay/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">随笔</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
