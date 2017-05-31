@@ -161,20 +161,90 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-java/java工具/DateUtil" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java/java工具/NetSFJson" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/19/java/java工具/DateUtil/">如何优雅地实现一个Java日期转换工具</a>
+      <a class="article-title" href="/2017/05/31/java/java工具/NetSFJson/">如何优雅的操作一个Json</a>
     </h1>
   
 
         
-        <a href="/2017/05/19/java/java工具/DateUtil/" class="archive-article-date">
-  	<time datetime="2017-05-19T08:50:47.028Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-19</time>
+        <a href="/2017/05/31/java/java工具/NetSFJson/" class="archive-article-date">
+  	<time datetime="2017-05-31T07:19:23.076Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="需求缘起"><a href="#需求缘起" class="headerlink" title="需求缘起"></a>需求缘起</h3><p>JSON（JavaScript Object Notation）,是一种被广泛使用的后端数据处理以及前后端数据交互格式，本文将简要讨论一下如何中规中矩的操作一个JsonObject，从中读取数据，最后我也会简单介绍一下如何优雅地构建一个Json。</p>
+<h4 id="写在编码之前"><a href="#写在编码之前" class="headerlink" title="写在编码之前"></a>写在编码之前</h4><p>需求定义：<br>1）从一个Json对象中读取Json属性，提供一个基本的读取函数get（返回值为Object），以及一些常用的类型如String，Double，Integer，Long，Boolean，JSONArray，JSONObject的读取函数<br>2）为上述所有函数提供一个包含默认值的重载函数，当用户调用这个有默认值的函数时，编码更加清晰，程序的行为会更加明了<br>3）虽然提供默认值程序会更加明了，但是上述两种解决方案还是可能导致大量空指针异常，为了对这个情况进行控制我们选择使用Optional（不了解的可参考guava类库以及Java8 Optional）来为上述函数统一提供一个Optional版本的重载（其实并不能叫重载，叫实现好一点，这里是为了凸显这三种实现的共性）。<br>4）跨越多级Json取出指定属性<br>5）原始的Json构造模式中代码不是很美观，而且如果你使用net.sf.json类库的话构造Json还可能出问题（之后会提到），所以本文最后会利用构造器模式来相对优雅地进行Json的组装。<br>6）问题5中的一个问题，先声明，此问题只有net.sf.json中会出现，fastjson类库中没有上述问题。其它类库中TZ没有进行过研究。</p>
+        
+          <a class="article-more-a" href="/2017/05/31/java/java工具/NetSFJson/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">JSON工具</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JSONTool</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/05/31/java/java工具/NetSFJson/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-java/java工具/DateTool" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/27/java/java工具/DateTool/">如何优雅地实现一个Java日期转换工具</a>
+    </h1>
+  
+
+        
+        <a href="/2017/05/27/java/java工具/DateTool/" class="archive-article-date">
+  	<time datetime="2017-05-27T07:26:45.951Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-27</time>
 </a>
         
       </header>
@@ -197,7 +267,7 @@
 <li>单元测试，这里把单元测试列为设计实现的一部分，首先单元测试的重要性我们就不说了，主要是代码写完了，是骡子是马，总得遛一遛看一下对不对。</li>
 </ul>
         
-          <a class="article-more-a" href="/2017/05/19/java/java工具/DateUtil/#more">more >></a>
+          <a class="article-more-a" href="/2017/05/27/java/java工具/DateTool/#more">more >></a>
         
       
 
@@ -233,7 +303,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/19/java/java工具/DateUtil/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/05/27/java/java工具/DateTool/">展开全文 >></a>
         </p>
       
 
@@ -418,6 +488,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">DateTool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">JSON工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JSONTool</a>
               </li>
             
             <div class="clearfix"></div>

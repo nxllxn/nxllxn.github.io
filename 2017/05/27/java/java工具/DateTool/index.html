@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://nxllxn.github.io">
-  <title>Archives: 2017 | nxl的博客</title>
+  <title>如何优雅地实现一个Java日期转换工具 | nxl的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java,Android程序猿">
-<meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验 + Android,Java">
-<meta property="og:type" content="website">
-<meta property="og:title" content="nxl的博客">
-<meta property="og:url" content="http://nxllxn.github.io/archives/2017/index.html">
+  <meta name="description" content="需求缘起 日常编程过程中或多或少需要用到日期转换相关的功能，比如常用格式相关的日期格式化为字符串或者是字符串转日期对象等，甚至有的时候需要一个兼容较多日期格式的字符串转日期方法，本文中我会实现一个基本满足上述功能的简单工具。 为什么要实现为一个工具而不是一个工具类呢。首先声明工具类和工具是有区别的，工具类是指XXXUtil这种命名的类，其内部通常包含一组功能相近或者相似的静态工具函数，注意了这">
+<meta name="keywords" content="java,日期转换工具,日期格式化工具,DateTool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何优雅地实现一个Java日期转换工具">
+<meta property="og:url" content="http://nxllxn.github.io/2017/05/27/java/java工具/DateTool/index.html">
 <meta property="og:site_name" content="nxl的博客">
-<meta property="og:description" content="Java,Android程序猿">
+<meta property="og:description" content="需求缘起 日常编程过程中或多或少需要用到日期转换相关的功能，比如常用格式相关的日期格式化为字符串或者是字符串转日期对象等，甚至有的时候需要一个兼容较多日期格式的字符串转日期方法，本文中我会实现一个基本满足上述功能的简单工具。 为什么要实现为一个工具而不是一个工具类呢。首先声明工具类和工具是有区别的，工具类是指XXXUtil这种命名的类，其内部通常包含一组功能相近或者相似的静态工具函数，注意了这">
+<meta property="og:updated_time" content="2017-05-25T02:16:10.704Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nxl的博客">
-<meta name="twitter:description" content="Java,Android程序猿">
+<meta name="twitter:title" content="如何优雅地实现一个Java日期转换工具">
+<meta name="twitter:description" content="需求缘起 日常编程过程中或多或少需要用到日期转换相关的功能，比如常用格式相关的日期格式化为字符串或者是字符串转日期对象等，甚至有的时候需要一个兼容较多日期格式的字符串转日期方法，本文中我会实现一个基本满足上述功能的简单工具。 为什么要实现为一个工具而不是一个工具类呢。首先声明工具类和工具是有区别的，工具类是指XXXUtil这种命名的类，其内部通常包含一组功能相近或者相似的静态工具函数，注意了这">
   
     <link rel="alternative" href="/atom.xml" title="nxl的博客" type="application/atom+xml">
   
@@ -159,82 +160,513 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-java/java工具/DateTool" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/31/java/java工具/NetSFJson/" class="archive-article-date">
-  	<time datetime="2017-05-31T07:19:23.076Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-31</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/31/java/java工具/NetSFJson/">如何优雅的操作一个Json</a>
+    <h1 class="article-title" itemprop="name">
+      如何优雅地实现一个Java日期转换工具
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">JSON工具</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JSONTool</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/27/java/java工具/DateTool/" class="archive-article-date">
+        
+        <a href="/2017/05/27/java/java工具/DateTool/" class="archive-article-date">
   	<time datetime="2017-05-27T07:26:45.951Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-27</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/27/java/java工具/DateTool/">如何优雅地实现一个Java日期转换工具</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p style="height=20;"></p>
 
-        <div class="article-info info-on-right">
-          
+<h3 id="需求缘起"><a href="#需求缘起" class="headerlink" title="需求缘起"></a>需求缘起</h3><ul>
+<li>日常编程过程中或多或少需要用到日期转换相关的功能，比如常用格式相关的日期格式化为字符串或者是字符串转日期对象等，甚至有的时候需要一个兼容较多日期格式的字符串转日期方法，本文中我会实现一个基本满足上述功能的简单工具。</li>
+<li>为什么要实现为一个工具而不是一个工具类呢。首先声明工具类和工具是有区别的，工具类是指XXXUtil这种命名的类，其内部通常包含一组功能相近或者相似的静态工具函数，注意了这里是静态工具函数。而工具是指以XXXTool这种命名的类，这种类通常是可实例化的，且内部有一组功能相近或者相似的实例方法。好吧，扯了这么多，其实大概意思就是我会用上一点点面向对象的设计思路。具体为什么要这样，看完本文你就会大概了解我的初衷的。</li>
+</ul>
+<h3 id="写在编码之前"><a href="#写在编码之前" class="headerlink" title="写在编码之前"></a>写在编码之前</h3><p>任何一份好的代码都必然是经过两次加工，第一次是在脑子里面，我不建议拿到需求就里面开始编码，首先你要把需求整个过一遍，在大脑里面有个大概的思路，此外，程序是写来处理异常情况的，为什么有“测试驱动编程”，就是我们先明确我们的代码需要处理的全部流程，需要的功能是什么，有哪些异常情况需要处理等等，做到这一步才能说我们理解了需求。</p>
+<ul>
+<li>基本功能，基本的字符串转日期功能，基本的日期格式化为字符串功能，一个可以兼容多种日期格式的字符串转日期功能。</li>
+<li>为了方便使用，可以为一些常用的格式转换提供默认实现</li>
+<li>面向对象编程，提供一组接口，提供这个接口的不同实现，为什么不同？之后再告诉你！</li>
+<li>单例，我计划将这个工具设计为一个单例</li>
+<li>线程安全，每次new一个日期转换工具类太麻烦而且浪费资源，我们会对日期格式化相关的对象做一个“缓存”。什么缓存，直接维护几个全局静态的实例不就好了吗？不！SimpleDateFormat不是线程安全的，在并发环境下这种实现就会出问题。那正确的姿势是什么呢？本文中我会使用ThreadLocal！</li>
+<li>单元测试，这里把单元测试列为设计实现的一部分，首先单元测试的重要性我们就不说了，主要是代码写完了，是骡子是马，总得遛一遛看一下对不对。</li>
+</ul>
+<a id="more"></a>
+<h3 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h3><h4 id="接口定义"><a href="#接口定义" class="headerlink" title="接口定义"></a>接口定义</h4><p>不多说了，直接上代码 </p>
+<pre><code>public interface DateTool {
+    /**
+     * 日志TAG
+     */
+    String TAG = &quot;DateTool&quot;;
+
+    /**
+     * 默认的日期格式
+     */
+    String DEFAULT_DATE_FORMAT = &quot;yyyy-MM-dd&quot;;  
+
+
+    /**
+     * 默认月份格式
+     */
+    String DEFAULT_MONTH_FORMAT = &quot;yyyy-MM&quot;;
+
+
+    /**
+     * 默认年份格式
+     */
+    String DEFAULT_YEAR_FORMAT = &quot;yyyy&quot;;
+
+
+    /**
+     * 默认的时间格式
+     */
+    String DEFAULT_TIME_FORMAT = &quot;HH:mm:ss&quot;;
+
+
+    /**
+     * 默认的日期时间格式
+     */
+    String DEFAULT_DATETIME_FORMAT = &quot;yyyy-MM-dd HH:mm:ss&quot;;
+
+
+    /**
+     * 如果字符串长度为8位，且都是字符串，那么我们认为这是一个yyyyMMdd格式的日期
+     */
+    Pattern FULL_DATE_PATTERN = Pattern.compile(&quot;[0-9]{8}&quot;); //20120101
+
+
+    /**
+     * 日期分隔符
+     */
+    String DATE_NOTIFIER_PATTERN_STR = &quot;[年月日\\-/.]+&quot;;
+
+
+    /**
+     * 时间分隔符
+     */
+    String TIME_NOTIFIER_PATTERN_STR = &quot;[时分秒点:]+&quot;;
+
+
+    /**
+     * 压缩的时间日期格式
+     */
+    String DATA_TIME_FORMAT = &quot;yyyyMMddHHmmss&quot;;
+
+
+    /**
+     * 压缩的日期格式
+     */
+    String DATA_FORMAT = &quot;yyyyMMdd&quot;;
+
+
+    /**
+     * 压缩的时间格式
+     */
+    String TIME_FORMAT = &quot;HHmmss&quot;;
+
+    Pattern REG_PATTERN_FOR_DATE = Pattern.compile(
+                &quot;((^((1[8-9]\\d{2})|([2-9]\\d{3}))([-/\\._])(10|12|0?[13578])([-/\\._])(3[01]|[12][0-9]|0?[1-9]).*$)&quot; +
+                        &quot;|(^((1[8-9]\\d{2})|([2-9]\\d{3}))([-/\\._])(11|0?[469])([-/\\._])(30|[12][0-9]|0?[1-9]).*$)&quot; +
+                        &quot;|(^((1[8-9]\\d{2})|([2-9]\\d{3}))([-/\\._])(0?2)([-/\\._])(2[0-8]|1[0-9]|0?[1-9]).*$)&quot; +
+                        &quot;|(^([2468][048]00)([-/\\._])(0?2)([-/\\._])(29).*$)&quot; +
+                        &quot;|(^([3579][26]00)([-/\\._])(0?2)([-/\\._])(29).*$)&quot; +
+                        &quot;|(^([1][89][0][48])([-/\\._])(0?2)([-/\\._])(29).*$)&quot; +
+                        &quot;|(^([2-9][0-9][0][48])([-/\\._])(0?2)([-/\\._])(29).*$)&quot; +
+                        &quot;|(^([1][89][2468][048])([-/\\._])(0?2)([-/\\._])(29).*$)&quot; +
+                        &quot;|(^([2-9][0-9][2468][048])([-/\\._])(0?2)([-/\\._])(29).*$)&quot; +
+                        &quot;|(^([1][89][13579][26])([-/\\._])(0?2)([-/\\._])(29).*$)&quot; +
+                        &quot;|(^([2-9][0-9][13579][26])([-/\\._])(0?2)([-/\\._])(29).*$))&quot;);
+
+     /**
+     * 使用指定格式化字符转换指定日期字符串
+     *
+     * @param dateTimeStr 指定日期字符串
+     * @return 转换后得到的date
+     */
+    Date parse(String dateTimeStr) throws Exception ;
+
+
+    /**
+     * 使用指定格式化字符转换指定日期字符串
+     *
+     * @param dateString 指定日期字符串
+     * @param parseStr   指定格式化字符
+     * @return 转换后得到的date
+     */
+    Date parse(String parseStr, String dateString) throws Exception ;
+
+
+    /**
+     * 按照指定字符串格式格式化指定日期
+     * @param pattern 字符串格式
+     * @param date 指定日期
+     * @return 格式化后的字符串
+     */
+    String format(String pattern, Date date) throws Exception ;
+
+
+    /**
+     * 使用默认日期格式转换指定日期字符换
+     *
+     * @param dateString 指定日期字符串
+     * @return 转换后得到的date
+     */
+    Date parseDate(String dateString) throws Exception ;
+
+
+    /**
+     * 使用默认日期格式格式化date
+     *
+     * @param date 指定date
+     * @return 格式化后的字符串
+     */
+    String formatDate(Date date) throws Exception ;
+
+
+    /**
+     * 使用默认时间格式转换时间字符串
+     *
+     * @param dateString 时间字符串
+     * @return 转换后得到的date
+     */
+    Date parseTime(String dateString) throws Exception ;
+
+
+    /**
+     * 使用默认时间格式格式化date
+     *
+     * @param date 指定date
+     * @return 格式化后的字符串
+     */
+    String formatTime(Date date) throws Exception ;
+
+
+    /**
+     * 使用默认格式转换指定日期时间字符串
+     *
+     * @param dateString 指定日期时间字符串
+     * @return 转换后得到的date
+     */
+    Date parseDateTime(String dateString) throws Exception ;
+
+
+    /**
+     * 使用默认日期时间格式格式化date
+     *
+     * @param date 指定date
+     * @return 格式化后的字符串
+     */
+    String formatDateTime(Date date) throws Exception ;
+}
+</code></pre><p>里面有比较详细的JavaDoc，我大概说一下</p>
+<ul>
+<li>程序开始定义了一些常用的日期格式字符串常量</li>
+<li>接下来是相关接口一共有9个接口：<ul>
+<li>Date parse(String dateTimeStr);兼容多种日期格式的字符串转日期接口</li>
+<li>Date parse(String parseStr, String dateString) ;使用指定格式化字符parseStr转换指定日期字符串dateString</li>
+<li>Date parseDate(String dateString) ; 使用默认日期格式转换指定日期字符换</li>
+<li>Date parseTime(String dateString) ; 使用默认时间格式转换时间字符串</li>
+<li>Date parseDateTime(String dateString) ; 使用默认日期时间格式转换指定日期时间字符串</li>
+<li>String format(String pattern, Date date); 按照指定字符串格式格式化指定日期</li>
+<li>String formatDate(Date date); 使用默认日期格式格式化date</li>
+<li>String formatTime(Date date) ; 使用默认时间格式格式化date</li>
+<li>String formatDateTime(Date date); 使用默认日期时间格式格式化date</li>
+</ul>
+</li>
+</ul>
+<p>一个字，清晰！明了！好了接下来就是具体实现了。</p>
+<h4 id="ThreadLocal实现时间转换格式“缓存”"><a href="#ThreadLocal实现时间转换格式“缓存”" class="headerlink" title="ThreadLocal实现时间转换格式“缓存”"></a>ThreadLocal实现时间转换格式“缓存”</h4><p>还是先上代码</p>
+<pre><code>public class BaseDateTool {
+    /**
+     * ThreadLocal 对象,用于存储当前线程中使用的日期格式化对象
+     */
+    private static final ThreadLocal convertDataFormatThreadLocal = new ThreadLocal();
+
+    /**
+     * 获取或者实例化一个指定字符串格式对应的SimpleDateFormat对象
+     * @param pattern 格式化字符串
+     * @return 格式化字符串对应的SimpleDateFormat格式化对象
+     */
+    protected SimpleDateFormat getDateFormat(String pattern) throws Exception{
+        Map&lt;String,SimpleDateFormat&gt; map = (Map&lt;String, SimpleDateFormat&gt;) convertDataFormatThreadLocal.get();
+
+        if(map == null){
+            map = new HashMap&lt;&gt;();
+
+            map.put(pattern,new SimpleDateFormat(pattern));
+
+            convertDataFormatThreadLocal.set(map);
+        }
+
+        if(!map.containsKey(pattern)){
+            map.put(pattern,new SimpleDateFormat(pattern));
+        }
+
+        return map.get(pattern);
+    }
+}
+</code></pre><p>这是具体实现类的一个基类，既然接口都抽出来了，把这一块功能抽离到一个基类里面好像也不过份吧。简单解释一下，首先声明了一个全局的静态的final的ThreadLocal对象，不用说了，我们用于日期转换格式化的SimpleDateFormat对象就会放到这里面。那么问题来了，怎么放呢，实际编码过程中，可能遇到各种类型的日期格式需要进行格式化或者转换。所以我们用一个Map来存储这些对象，key为实际的字符串格式，值为当前字符串格式对应的日期转换格式化对象，如果Map中已经存在了指定字符串格式的key，那么直接将这个key对应的对象返回，否则先new一个当前格式的对象，然后插入到Map中并返回。</p>
+<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h4><p>老规矩，先上代码。</p>
+<pre><code>public class DateToolImpl extends BaseDateTool implements DateTool{
+     private DateToolImpl(){}
+
+    private static class Holder{
+        private static final DateTool dateTool = new DateToolImpl();
+    }
+
+    public static DateTool getSiingleInstance(){
+        return Holder.dateTool;
+    }
+
+    @Override
+    public Date parse(String dateTimeStr) throws Exception  {
+        if (StringUtils.isEmpty(dateTimeStr)) {
+            return null;
+        }
+
+        dateTimeStr = dateTimeStr.replaceAll(&quot;\\.\\d{3}&quot;, &quot;&quot;);   //去除掉毫秒部分
+
+        String dateStr = null;
+        String timeStr = null;
+        String[] dateTimeStrParts = dateTimeStr.split(&quot;[ \\n]&quot;);
+        for (String dateTimeStrPart : dateTimeStrParts) {
+            if (REG_PATTERN_FOR_DATE.matcher(dateTimeStrPart).matches()
+                    || dateTimeStrPart.contains(&quot;年&quot;)
+                    || dateTimeStrPart.contains(&quot;月&quot;)
+                    || dateTimeStrPart.contains(&quot;日&quot;)
+                    || dateTimeStrPart.contains(&quot;-&quot;)
+                    || dateTimeStrPart.contains(&quot;/&quot;)
+                    || dateTimeStrPart.contains(&quot;.&quot;)
+                    || FULL_DATE_PATTERN.matcher(dateTimeStrPart).matches()
+                    || dateTimeStrPart.length() == 4) {
+                dateStr = dateTimeStrPart;
+            } else {
+                timeStr = dateTimeStrPart;
+            }
+        }
+
+        StringBuilder dateBuilder = new StringBuilder();
+        if (!StringUtils.isEmpty(dateStr)) {
+            String[] dateParts = dateStr.split(DATE_NOTIFIER_PATTERN_STR);
+            for (String datePart : dateParts) {
+                if (datePart.length() == 1) {
+                    dateBuilder.append(&quot;0&quot;);
+                }
+
+                dateBuilder.append(datePart);
+            }
+
+            switch (dateBuilder.length()) {
+                case 4:
+                    dateBuilder.append(&quot;0101&quot;);
+                    break;
+                case 6:
+                    dateBuilder.append(&quot;01&quot;);
+                    break;
+            }
+        }
+
+
+        StringBuilder timeBuilder = new StringBuilder();
+
+        if (!StringUtils.isEmpty(timeStr)) {
+            String[] timeParts = timeStr.split(TIME_NOTIFIER_PATTERN_STR);
+            for (String timePart : timeParts) {
+                if (timePart.length() == 1) {
+                    timeBuilder.append(&quot;0&quot;);
+                }
+
+                timeBuilder.append(timePart);
+            }
+
+            switch (timeBuilder.length()) {
+                case 2:
+                    timeBuilder.append(&quot;0000&quot;);
+                    break;
+                case 4:
+                    timeBuilder.append(&quot;00&quot;);
+                    break;
+            }
+        }
+
+        String formattedDateStr = dateBuilder.toString();
+        String formattedTimeStr = timeBuilder.toString();
+
+        if (StringUtils.isEmpty(formattedDateStr) &amp;&amp; StringUtils.isEmpty(formattedTimeStr)) {
+            return null;
+        }
+
+        if (StringUtils.isEmpty(formattedDateStr)) {
+            return parse(TIME_FORMAT,formattedTimeStr);
+        }
+
+        if (StringUtils.isEmpty(formattedTimeStr)) {
+            return parse(DATA_FORMAT,formattedDateStr);
+        }
+
+        return parse(DATA_TIME_FORMAT,formattedDateStr + formattedTimeStr);
+    }
+
+    @Override
+    public Date parse(String parseStr, String dateString) throws Exception {
+        if(StringUtils.isEmpty(parseStr) || StringUtils.isEmpty(dateString)){
+            return null;
+        }
+
+        return getDateFormat(parseStr).parse(dateString);
+    }
+
+    @Override
+    public String format(String pattern, Date date) throws Exception {
+        if(StringUtils.isEmpty(pattern) || date == null){
+            return null;
+        }
+
+        return getDateFormat(pattern).format(date);
+    }
+
+    @Override
+    public Date parseDate(String dateString) throws Exception {
+        return parse(DEFAULT_DATE_FORMAT, dateString);
+    }
+
+    @Override
+    public String formatDate(Date date) throws Exception  {
+        return format(DEFAULT_DATE_FORMAT, date);
+    }
+
+    @Override
+    public Date parseTime(String dateString) throws Exception {
+        return parse(DEFAULT_TIME_FORMAT, dateString);
+    }
+
+    @Override
+    public String formatTime(Date date) throws Exception  {
+        return format(DEFAULT_TIME_FORMAT, date);
+    }
+
+    @Override
+    public Date parseDateTime(String dateString) throws Exception {
+        return parse(DEFAULT_DATETIME_FORMAT, dateString);
+    }
+
+    @Override
+    public String formatDateTime(Date date) throws Exception  {
+        return format(DEFAULT_DATETIME_FORMAT, date);
+    }
+}
+</code></pre><p>具体实现细节我就不再多讲了，上面的每个实现都不是很复杂。</p>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><pre><code>DateTool dateTool = DateToolImpl.getSingleInstance();
+@Test
+@SuppressWarnings(&quot;unchecked&quot;)
+public void testIntelligentParse(){
+    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,dateTool.parse(&quot;20120202&quot;).toString());
+    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012-02-02&quot;).toString());
+    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012-02-2&quot;).toString());
+    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012年2月2日&quot;).toString());
+
+    assertEquals(&quot;Thu Feb 02 01:01:01 CST 2012&quot;,dateTool.parse(&quot;2012-02-02 01:01:01&quot;).toString());
+    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012/02/02&quot;).toString());
+    assertEquals(&quot;Thu Feb 02 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012-02-02&quot;).toString());
+    assertEquals(&quot;Thu Jan 01 20:12:02 CST 1970&quot;,dateTool.parse(&quot;201202&quot;).toString());
+
+    assertEquals(&quot;Sun Jan 01 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012&quot;).toString());
+    assertEquals(&quot;Sun Jan 01 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012年&quot;).toString());
+    assertEquals(&quot;Wed Feb 01 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012年02月&quot;).toString());
+    assertEquals(&quot;Wed Feb 01 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012.02.01&quot;).toString());
+
+    assertEquals(&quot;Wed Feb 01 00:00:00 CST 2012&quot;,dateTool.parse(&quot;2012.02&quot;).toString());
+    assertEquals(&quot;Thu Jan 01 11:11:11 CST 1970&quot;,dateTool.parse(&quot;11:11:11&quot;).toString());
+    assertEquals(&quot;Thu Jan 01 01:01:01 CST 1970&quot;,dateTool.parse(&quot;1:1:1&quot;).toString());
+    assertEquals(&quot;Thu Jan 01 01:01:01 CST 1970&quot;,dateTool.parse(&quot;01:01:01&quot;).toString());
+
+    assertEquals(&quot;Thu Jan 01 11:11:00 CST 1970&quot;,dateTool.parse(&quot;11:11&quot;).toString());
+    assertEquals(&quot;Thu Jan 01 11:00:00 CST 1970&quot;,dateTool.parse(&quot;11&quot;).toString());
+}
+
+结果：上面的单元测试都可以通过
+
+//测试多线程
+public static void main(String[] args) {
+    DateTool dateTool = DateToolImpl.getSingleInstance();
+    for (int index = 0;index &lt; 10;index ++){
+        new Thread(() -&gt; {
+            String currentThreadName = Thread.currentThread().getName();
+
+            System.out.println(currentThreadName + &quot; &quot; + dateTool.parse(&quot;20120202&quot;));
+            System.out.println(currentThreadName + &quot; &quot; + dateTool.parse(&quot;11:11:11&quot;));
+            System.out.println(currentThreadName + &quot; &quot; + dateTool.parse(&quot;2012年02月02日 11:11:11&quot;));
+        }).start();
+    }
+}
+
+结果：
+Thread-7 Thu Feb 02 00:00:00 CST 2012
+Thread-8 Thu Feb 02 00:00:00 CST 2012
+Thread-2 Thu Feb 02 00:00:00 CST 2012
+Thread-7 Thu Jan 01 11:11:11 CST 1970
+Thread-2 Thu Jan 01 11:11:11 CST 1970
+Thread-3 Thu Feb 02 00:00:00 CST 2012
+Thread-5 Thu Feb 02 00:00:00 CST 2012
+Thread-3 Thu Jan 01 11:11:11 CST 1970
+Thread-5 Thu Jan 01 11:11:11 CST 1970
+Thread-6 Thu Feb 02 00:00:00 CST 2012
+Thread-0 Thu Feb 02 00:00:00 CST 2012
+Thread-3 Thu Feb 02 11:11:11 CST 2012
+Thread-2 Thu Feb 02 11:11:11 CST 2012
+Thread-9 Thu Feb 02 00:00:00 CST 2012
+Thread-4 Thu Feb 02 00:00:00 CST 2012
+Thread-1 Thu Feb 02 00:00:00 CST 2012
+Thread-0 Thu Jan 01 11:11:11 CST 1970
+Thread-7 Thu Feb 02 11:11:11 CST 2012
+Thread-1 Thu Jan 01 11:11:11 CST 1970
+Thread-8 Thu Jan 01 11:11:11 CST 1970
+Thread-0 Thu Feb 02 11:11:11 CST 2012
+Thread-1 Thu Feb 02 11:11:11 CST 2012
+Thread-8 Thu Feb 02 11:11:11 CST 2012
+Thread-6 Thu Jan 01 11:11:11 CST 1970
+Thread-5 Thu Feb 02 11:11:11 CST 2012
+Thread-4 Thu Jan 01 11:11:11 CST 1970
+Thread-6 Thu Feb 02 11:11:11 CST 2012
+Thread-9 Thu Jan 01 11:11:11 CST 1970
+Thread-4 Thu Feb 02 11:11:11 CST 2012
+Thread-9 Thu Feb 02 11:11:11 CST 2012
+</code></pre><h4 id="为什么要定义接口"><a href="#为什么要定义接口" class="headerlink" title="为什么要定义接口"></a>为什么要定义接口</h4><p>我们为需要实现的功能定义了接口，并提供了一种实现。但是有些时候可能需要另一种实现。比如java8中提供了一组新的Date Api，比如日期格式化类DateTimeFormatter。如果我们希望利用Java8 Date api做一个新的实现，那么就可以在不改变原来代码的情况下直接扩展一个实现就好了。</p>
+<h4 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h4><p>只是一个小demo，代码写的不好，有什么问题恳请批评指正，感激涕零！此外，请轻喷！</p>
+<h4 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h4><p><a href="http://www.cnblogs.com/peida/archive/2013/05/31/3070790.html" target="_blank" rel="external">深入理解Java：SimpleDateFormat安全的时间格式化</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -258,57 +690,109 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://nxllxn.github.io/2017/05/27/java/java工具/DateTool/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/05/19/essay/essay/" class="archive-article-date">
-  	<time datetime="2017-05-19T03:08:48.971Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-19</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/05/19/essay/essay/">随笔</a>
-    </h1>
+    <a href="/2017/05/31/java/java工具/NetSFJson/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          如何优雅的操作一个Json
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/19/essay/essay/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">随笔</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://nxllxn.github.io/2017/05/27/java/java工具/DateTool/", 
+    sourceId: "java/java工具/DateTool",
+    productKey: "753d3fa98c61423fa4eaa0931546c754",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -331,8 +815,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
