@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://nxllxn.github.io">
-  <title>Tag: linux 命令行 | nxl的博客</title>
+  <title>AOP+ExceptionHandler+ControllerAdvice实现全局异常处理与日志打印 | nxl的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java,Android程序猿">
-<meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验 + Android,Java">
-<meta property="og:type" content="website">
-<meta property="og:title" content="nxl的博客">
-<meta property="og:url" content="http://nxllxn.github.io/tags/linux-命令行/index.html">
+  <meta name="description" content="需求缘起在一般的业务系统开发过程中异常处理和日志打印都是很常见也很必要的部分。  首先是异常处理，你可以通过在代码中加上无数的try-catch代码块儿来完成这件事情，但是这样写出的代码非常不美观，而且大多数都是重复性劳动。举个例子，比如接口接收参数处理这件事情，假设你需要一个long类型的id来完成一次以id为准的查询，同时我们也假设这个调用接口的客户端非常“不负责任”，在调用过程中任何可能的值">
+<meta name="keywords" content="java,AOP,AspectJ,ExceptionHandler,ControllerAdvice,全局异常处理,日志">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AOP+ExceptionHandler+ControllerAdvice实现全局异常处理与日志打印">
+<meta property="og:url" content="http://nxllxn.github.io/2017/07/30/java/aop/LogAspectj/index.html">
 <meta property="og:site_name" content="nxl的博客">
-<meta property="og:description" content="Java,Android程序猿">
+<meta property="og:description" content="需求缘起在一般的业务系统开发过程中异常处理和日志打印都是很常见也很必要的部分。  首先是异常处理，你可以通过在代码中加上无数的try-catch代码块儿来完成这件事情，但是这样写出的代码非常不美观，而且大多数都是重复性劳动。举个例子，比如接口接收参数处理这件事情，假设你需要一个long类型的id来完成一次以id为准的查询，同时我们也假设这个调用接口的客户端非常“不负责任”，在调用过程中任何可能的值">
+<meta property="og:updated_time" content="2017-07-30T07:47:48.689Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nxl的博客">
-<meta name="twitter:description" content="Java,Android程序猿">
+<meta name="twitter:title" content="AOP+ExceptionHandler+ControllerAdvice实现全局异常处理与日志打印">
+<meta name="twitter:description" content="需求缘起在一般的业务系统开发过程中异常处理和日志打印都是很常见也很必要的部分。  首先是异常处理，你可以通过在代码中加上无数的try-catch代码块儿来完成这件事情，但是这样写出的代码非常不美观，而且大多数都是重复性劳动。举个例子，比如接口接收参数处理这件事情，假设你需要一个long类型的id来完成一次以id为准的查询，同时我们也假设这个调用接口的客户端非常“不负责任”，在调用过程中任何可能的值">
   
     <link rel="alternative" href="/atom.xml" title="nxl的博客" type="application/atom+xml">
   
@@ -159,68 +160,227 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-java/aop/LogAspectj" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/06/27/linux/linux命令行/LinuxCommandLine/" class="archive-article-date">
-  	<time datetime="2017-06-27T12:15:03.350Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-27</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/06/27/linux/linux命令行/LinuxCommandLine/">Linux 命令行</a>
+    <h1 class="article-title" itemprop="name">
+      AOP+ExceptionHandler+ControllerAdvice实现全局异常处理与日志打印
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/07/30/java/aop/LogAspectj/" class="archive-article-date">
+  	<time datetime="2017-07-30T07:47:48.697Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="需求缘起"><a href="#需求缘起" class="headerlink" title="需求缘起"></a>需求缘起</h3><p>在一般的业务系统开发过程中异常处理和日志打印都是很常见也很必要的部分。</p>
+<ul>
+<li>首先是异常处理，你可以通过在代码中加上无数的try-catch代码块儿来完成这件事情，但是这样写出的代码非常不美观，而且大多数都是重复性劳动。举个例子，比如接口接收参数处理这件事情，假设你需要一个long类型的id来完成一次以id为准的查询，同时我们也假设这个调用接口的客户端非常“不负责任”，在调用过程中任何可能的值都可能被传递过来，比如根本就没有传指定字段，空字符串，null,一段非数字的文本（“张三123”）,一个负数等等。当你想要将这个入参字符串转换为一个数值id时，可能发生各种异常，比如空指针啊，数字格式化异常等等。这时肯定不能直接让程序崩溃掉，然后给前端一个500吧？这时不可避免的就需要进行异常处理，你可能会说，“很简单啊，我加一个try-catch块就好了”，对，你这的确可以解决问题，但是新的问题来了，如果有10个20个甚至100个接口，每个接口你都做一遍这种重复性的劳动，岂不是很sb。所以笔者还是推荐使用全局的异常处理机制，在不影响系统功能或者说系统流程执行的情况下，尽量将捕获到的异常向外层调用者抛出，然后在最外层的ExceptionHandler中进行处理。</li>
+<li>其次我们说一下关于日志打印，你可能又会说了，程序写到那里，如果需要打印日志直接打印就好了。那么我想申明我的几个观点：1）你有必要在整个执行流程里面加上这些日志打印的逻辑吗，这么做和单步调试有什么分别，为什么要用日志来做调试的工作呢，感觉和用System.out.println()的如出一辙。2）如果发生了系统故障，凭借输入，输出，异常堆栈应该完全可以定位到异常代码的位置了，如果此时还不能定位，只能说明代码设计有问题。3）日志从接口调用的输入，异常处理（不是必要的），输出最好能够在一起被打印出来，这很好理解了，因为业务系统运行起来基本是多线程的，如果输入输出打印不同步，日志阅读起来将非常困难。此外，日志是为了帮助程序员在出异常的时候能够快速定位到异常代码的位置。换句话说这些东西并不能看作业务代码的一部分，好的设计应该尽可能减少这些“不相关的代码”对真正的业务代码的侵入性。所以我们也希望实现全局的日志打印。</li>
+</ul>
+<a id="more"></a>
+<h3 id="写在编码之前"><a href="#写在编码之前" class="headerlink" title="写在编码之前"></a>写在编码之前</h3><p>前面详细阐述了需求，现在简单描述一下实现思路：</p>
+<ul>
+<li>全局异常处理：异常抛出+ControllerAdvice+ExceptionHandler</li>
+<li>全局日志打印，分两种情况：<ul>
+<li>存在异常，直接在ExceptionHandler注解标注的方法中进行日志打印，包括请求url，参数，对应的异常情况下的响应。</li>
+<li>不存在异常，直接在Spring Aop中进行日志打印，spring around注解标注的方法中可以拿到controller中接口返回的响应，先打印日志，再返回结果。</li>
+</ul>
+</li>
+</ul>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><p>实际的设计可能与上述设计有一些出入，主要原因如下：</p>
+<ul>
+<li>我们定义的切面在Controller的接口上面，但是利用@RequestBody注解（对应Post方法）和@RequestParam注解（对应Get方法）进行参数绑定的过程发生在aop之前。而参数绑定过程中如果Post请求请求体body为空，将直接抛出HttpMessageNotReadableException异常，如果Get请求参数缺失将直接抛出MissingServletRequestParameterException异常。如果抛出异常，请求实体HttpServletRequest以及对应的Exception对象将直接交付给由ExceptionHandler注解的方法进行处理，而不会再进入aop中，所以这些请求的日志打不出来。那么这部分“遗漏的请求”必须在由ExceptionHandler注解的方法中进行日志打印。</li>
+<li>在实际编码过程中我们也遇到另一个问题，就是HttpServletRequest对象在ExceptionHandler中无法取出参数，InputStream为空，调用getReader抛出流已经被打开的异常。但是在aop中可以通过@Around注解标记的方法的入参ProceedingJoinPoint.getArgs获取到。所以我们决大多数日志都在aop中进行打印。</li>
+<li>会不会有遗漏参数的情况呢，其实是有的，HttpMessageNotReadableException对应Post请求请求体body为空，这是没有参数可取，也就没有遗漏一说。MissingServletRequestParameterException对应Get请求参数缺失。这时，我们还需要利用HttpServletRequest.getQueryString将请求参数打印出来。</li>
+</ul>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><h4 id="AOP日志打印"><a href="#AOP日志打印" class="headerlink" title="AOP日志打印"></a>AOP日志打印</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Aspect</span>   <span class="comment">//定义一个切面</span></div><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">class</span> LogAspect &#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> final <span class="built_in">String</span> TAG = <span class="string">"LogAspect"</span>;</div><div class="line"></div><div class="line">    <span class="comment">// 定义切点Pointcut</span></div><div class="line">    <span class="meta">@Pointcut</span>(<span class="string">"execution(* com.nxllxn.controller.*Controller.*(..))"</span>)</div><div class="line">    <span class="keyword">public</span> <span class="built_in">void</span> executeService() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Around</span>(<span class="string">"executeService()"</span>)</div><div class="line">    <span class="keyword">public</span> <span class="built_in">Object</span> executeService(ProceedingJoinPoint pjp) throws Throwable &#123;</div><div class="line">        RequestAttributes ra = RequestContextHolder.getRequestAttributes();</div><div class="line">        ServletRequestAttributes sra = (ServletRequestAttributes) ra;</div><div class="line">        HttpServletRequest request = sra.getRequest();</div><div class="line"></div><div class="line">        <span class="built_in">String</span> url = request.getRequestURL().toString();</div><div class="line">        <span class="built_in">String</span> method = request.getMethod();</div><div class="line"></div><div class="line">        <span class="built_in">String</span> requestParamStr = <span class="literal">null</span>;</div><div class="line">        <span class="keyword">if</span> (method.equalsIgnoreCase(<span class="string">"GET"</span>)) &#123;</div><div class="line">            requestParamStr = request.getQueryString();</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method.equalsIgnoreCase(<span class="string">"POST"</span>)) &#123;</div><div class="line">            requestParamStr = Arrays.toString(pjp.getArgs());</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// result的值就是被拦截方法的返回值</span></div><div class="line">        <span class="built_in">Object</span> result;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            result = pjp.proceed();</div><div class="line">        &#125; <span class="keyword">catch</span> (Exception ex) &#123;</div><div class="line">            <span class="comment">//如果发生异常，那么将其转换为用户友好的接口调用返回信息</span></div><div class="line">            <span class="built_in">String</span> code = getCodeByException(ex);</div><div class="line">            <span class="built_in">String</span> msd = getMsgByException(ex);</div><div class="line"></div><div class="line">            JSONObject resultJsonObj = <span class="keyword">new</span> JSONObject();</div><div class="line">            resultJsonObj.put(<span class="string">"code"</span>, code);</div><div class="line">            resultJsonObj.put(<span class="string">"msg"</span>, msg);</div><div class="line"></div><div class="line">            Log.i(TAG, <span class="built_in">String</span>.format(<span class="string">"[%s] [%s] [%s] [%s]"</span>, method.toUpperCase(), url, requestParamStr, resultJsonObj));</div><div class="line"></div><div class="line">            <span class="keyword">return</span> resultJsonObj.toJSONString();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        Log.i(TAG, <span class="built_in">String</span>.format(<span class="string">"[%s] [%s] [%s] [%s]"</span>, method.toUpperCase(), url, requestParamStr, result));</div><div class="line"></div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码很简单，就几个关键点提一下：</p>
+<ul>
+<li>首先我们定义了PointCut。就是当前切面在controller包下面的所有Controller中所有接口之前执行</li>
+<li>我们从@Around注解标记的方法的入参ProceedingJoinPoint对象中取出了请求对象HttpServletRequest</li>
+<li>从HttpServletRequest中取出请求方法，url</li>
+<li>如果是Get请求，那么用request.getQueryString()取出参素</li>
+<li>如果是Post请求，利用ProceedingJoinPoint.getArgs()取出参数</li>
+<li>ProceedingJoinPoint.proceed()方法执行时会具体调用我们要调用的接口并得到返回值result。</li>
+<li>接下来对异常进行处理，按照规范为异常定义统一的异常码，以及异常提示语句。</li>
+<li>打印日志，格式为<code>[请求方法] [请求URL] [请求参数] [返回结果]</code></li>
+</ul>
+<h4 id="ExceptionHandler异常处理"><a href="#ExceptionHandler异常处理" class="headerlink" title="ExceptionHandler异常处理"></a>ExceptionHandler异常处理</h4><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">@ControllerAdvice</div><div class="line"><span class="keyword">public</span> class ExceptionHandler&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">String</span> TAG = <span class="string">"ExceptionHandler"</span>;</div><div class="line"></div><div class="line">    @org.springframework.web.bind.annotation.ExceptionHandler</div><div class="line">    <span class="keyword">public</span> <span class="keyword">String</span> exceptionHandler(HttpServletRequest request,Exception e) <span class="keyword">throws</span> IOException &#123;</div><div class="line">        <span class="keyword">String</span> url = request.getRequestURL().toString();</div><div class="line">        <span class="keyword">String</span> method = request.getMethod();</div><div class="line"></div><div class="line">        <span class="comment">//为什么这里还需要处理呢，那是因为HttpMessageNotReadableException MissingServletRequestParameterException</span></div><div class="line">        <span class="comment">//这两个异常发生在aop进入切面之前的参数绑定阶段（spring自动完成的），如果参数缺失，将无法在aop（LogAspect）中打印出日志</span></div><div class="line"></div><div class="line">        <span class="comment">//为什么这里只处理get的情况呢，因为</span></div><div class="line">        <span class="comment">//如果是Post请求，有参数的话，即使为null也会进入aop（LogAspect）。如果完全没有参数（即传递的是空字符串，那么requestParamStr就是空字符串，没有处理一说）</span></div><div class="line">        <span class="comment">//如果是Get请求，不缺少单数，进入aop（LogAspect）打印日志，如果缺少参数在此处打印日志</span></div><div class="line">        <span class="keyword">String</span> requestParamStr = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">if</span> (method.equalsIgnoreCase(<span class="string">"GET"</span>)) &#123;</div><div class="line">            requestParamStr = request.getQueryString();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">String</span> code = getCodeByException(ex);</div><div class="line">        <span class="keyword">String</span> msd = getMsgByException(ex);</div><div class="line">        </div><div class="line">        <span class="keyword">JSONObject</span> resultJsonObj = <span class="keyword">new</span> <span class="keyword">JSONObject</span>();</div><div class="line">        resultJsonObj.put(<span class="string">"code"</span>, code);</div><div class="line">        resultJsonObj.put(<span class="string">"msg"</span>, msg);</div><div class="line"></div><div class="line">        Log.i(TAG, <span class="keyword">String</span>.format(<span class="string">"[%s] [%s] [%s] [%s]"</span>, method.toUpperCase(), url, requestParamStr, resultJsonObj.toJSONString()));</div><div class="line"></div><div class="line">        <span class="keyword">return</span> resultJsonObj.toJSONString();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码描述：</p>
+<ul>
+<li>首先用ControllerAdvice注解注解用于全局异常处理的类</li>
+<li>其次用ExceptionHandler注解注解用于全局异常处理的方法,此方法拥有签名String exceptionHandler(HttpServletRequest,Exception)</li>
+<li>如果是GET请求，需要做一点额外处理，就是取出参数，Post不用，因为这种情况下肯定是HttpMessageNotReadableException异常，换句话说，请求参数为空</li>
+<li>接下来对异常进行处理，按照规范为异常定义统一的异常码，以及异常提示语句。</li>
+<li>打印日志，格式为<code>[请求方法] [请求URL] [请求参数] [返回结果]</code></li>
+</ul>
+<h3 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h3><p>至此我们的全局异常处理以及全局日志打印就实现完成了。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">linux 命令行</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">AOP</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">linux shell</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">AspectJ</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ExceptionHandler</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ControllerAdvice</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">全局异常处理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日志</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://nxllxn.github.io/2017/07/30/java/aop/LogAspectj/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/07/23/java/Java虚拟机/JavaMemoryDistribution/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java虚拟机--运行时数据区</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://nxllxn.github.io/2017/07/30/java/aop/LogAspectj/", 
+    sourceId: "java/aop/LogAspectj",
+    productKey: "753d3fa98c61423fa4eaa0931546c754",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -243,9 +403,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

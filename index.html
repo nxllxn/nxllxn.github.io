@@ -161,6 +161,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-java/aop/LogAspectj" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/30/java/aop/LogAspectj/">AOP+ExceptionHandler+ControllerAdvice实现全局异常处理与日志打印</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/30/java/aop/LogAspectj/" class="archive-article-date">
+  	<time datetime="2017-07-30T07:47:48.697Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="需求缘起"><a href="#需求缘起" class="headerlink" title="需求缘起"></a>需求缘起</h3><p>在一般的业务系统开发过程中异常处理和日志打印都是很常见也很必要的部分。</p>
+<ul>
+<li>首先是异常处理，你可以通过在代码中加上无数的try-catch代码块儿来完成这件事情，但是这样写出的代码非常不美观，而且大多数都是重复性劳动。举个例子，比如接口接收参数处理这件事情，假设你需要一个long类型的id来完成一次以id为准的查询，同时我们也假设这个调用接口的客户端非常“不负责任”，在调用过程中任何可能的值都可能被传递过来，比如根本就没有传指定字段，空字符串，null,一段非数字的文本（“张三123”）,一个负数等等。当你想要将这个入参字符串转换为一个数值id时，可能发生各种异常，比如空指针啊，数字格式化异常等等。这时肯定不能直接让程序崩溃掉，然后给前端一个500吧？这时不可避免的就需要进行异常处理，你可能会说，“很简单啊，我加一个try-catch块就好了”，对，你这的确可以解决问题，但是新的问题来了，如果有10个20个甚至100个接口，每个接口你都做一遍这种重复性的劳动，岂不是很sb。所以笔者还是推荐使用全局的异常处理机制，在不影响系统功能或者说系统流程执行的情况下，尽量将捕获到的异常向外层调用者抛出，然后在最外层的ExceptionHandler中进行处理。</li>
+<li>其次我们说一下关于日志打印，你可能又会说了，程序写到那里，如果需要打印日志直接打印就好了。那么我想申明我的几个观点：1）你有必要在整个执行流程里面加上这些日志打印的逻辑吗，这么做和单步调试有什么分别，为什么要用日志来做调试的工作呢，感觉和用System.out.println()的如出一辙。2）如果发生了系统故障，凭借输入，输出，异常堆栈应该完全可以定位到异常代码的位置了，如果此时还不能定位，只能说明代码设计有问题。3）日志从接口调用的输入，异常处理（不是必要的），输出最好能够在一起被打印出来，这很好理解了，因为业务系统运行起来基本是多线程的，如果输入输出打印不同步，日志阅读起来将非常困难。此外，日志是为了帮助程序员在出异常的时候能够快速定位到异常代码的位置。换句话说这些东西并不能看作业务代码的一部分，好的设计应该尽可能减少这些“不相关的代码”对真正的业务代码的侵入性。所以我们也希望实现全局的日志打印。</li>
+</ul>
+        
+          <a class="article-more-a" href="/2017/07/30/java/aop/LogAspectj/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">AOP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">AspectJ</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ExceptionHandler</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ControllerAdvice</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">全局异常处理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">日志</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/30/java/aop/LogAspectj/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-java/Java虚拟机/JavaMemoryDistribution" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -648,15 +737,43 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">linux 命令行</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">linux shell</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">JSON工具</a>
+                <a href="javascript:void(0)" class="js-tag color4">AOP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JSONTool</a>
+                <a href="javascript:void(0)" class="js-tag color3">AspectJ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ExceptionHandler</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ControllerAdvice</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">全局异常处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">日志</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -672,15 +789,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color2">JSON工具</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">linux 命令行</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">linux shell</a>
+                <a href="javascript:void(0)" class="js-tag color4">JSONTool</a>
               </li>
             
             <div class="clearfix"></div>
